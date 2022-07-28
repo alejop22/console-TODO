@@ -9,7 +9,7 @@ const main = async () => {
 
     let opt = '';
     const tareas = new Tareas();
-    
+
     do {
         opt = await inquirerMenu();
 
@@ -22,7 +22,7 @@ const main = async () => {
 
                 break;
             case 2:
-                console.log(tareas._listado);
+                console.log(tareas.listadoArr);
                 break;
             case 3:
                 
