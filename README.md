@@ -10,4 +10,4 @@ Ingresar los siguientes comandos en la raíz de la app:
 
 `$ npm install`
 
-`$ npm start`
+`$ node app.js`
