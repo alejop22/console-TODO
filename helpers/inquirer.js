@@ -77,8 +77,75 @@ const leerInput = async(message) => {
     return desc;
 }
 
+const listadoTareasBorrar = async(tareas) => {
+
+    const choices = tareas.map((tarea, index) => {
+        return {
+            value: tarea.id,
+            name: `${(index+1+'.').green} ${tarea.desc}`
+        }
+    });
+    
+    choices.unshift({
+        value: '0',
+        name: `${'0.'.green} Cancelar` 
+    });
+
+    const {id} = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Borrar',
+            choices
+        }
+    ]);
+
+    return id;
+}
+
+const confirmar = async(message) => {
+    
+    const ok = await inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ]);
+
+    return ok;
+}
+
+const mostrarListadoCheckList = async(tareas) => {
+    if (tareas.length !== 0) {
+        const choices = tareas.map((tarea, index) => {
+            return {
+                value: tarea.id,
+                name: `${(index+1+'.').green} ${tarea.desc}`,
+                checked: (tarea.completadoEn) ? true : false
+            }
+        });
+    
+        const {ids} = await inquirer.prompt([
+            {
+                type: 'checkbox',
+                name: 'ids',
+                message: 'Check list tareas',
+                choices
+            }
+        ]);
+    
+        return ids;
+    } else {
+        console.log('No hay tareas en la lista :D'.green);
+    }
+}
+
 module.exports = {
     inquirerMenu,
     pausa,
     leerInput,
+    listadoTareasBorrar,
+    confirmar,
+    mostrarListadoCheckList
 }
