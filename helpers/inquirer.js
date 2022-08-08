@@ -58,7 +58,7 @@ const pausa = async() => {
             message: `Presione ${'ENTER'.green} para continuar`
         }
     ]);
-    console.log('\n');
+    console.log();
 }
 
 const leerInput = async(message) => {
