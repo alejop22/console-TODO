@@ -1,6 +1,6 @@
 require('colors');
+const { guardarData, leerData } = require('./helpers/guardarArchivo');
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
-const Tarea = require('./models/tarea');
 const Tareas = require('./models/tareas');
 
 // const { mostrarMenu, pausa } = require('./helpers/mensajes');
@@ -10,13 +10,17 @@ const main = async () => {
     let opt = '';
     const tareas = new Tareas();
 
+    const data = leerData();
+
+    if (data) {
+        tareas.cargarTareasFromArr(data);
+    }
+    
     do {
         opt = await inquirerMenu();
 
-
         switch (opt) {
             case 1:
-                
                 const tarea = await leerInput('Descripcion: ');
                 tareas.creaTarea(tarea);
 
@@ -39,11 +43,11 @@ const main = async () => {
             case 0:
                 
                 break;
-
-
         }
 
-        if (opt !== 0) await pausa();
+        guardarData(tareas.listadoArr);
+
+        await pausa();
 
     } while (opt !== 0);
 }
